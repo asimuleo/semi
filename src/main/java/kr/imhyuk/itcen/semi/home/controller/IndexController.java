@@ -1,4 +1,4 @@
-package kr.imhyuk.itcen.semi.controller;
+package kr.imhyuk.itcen.semi.home.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
