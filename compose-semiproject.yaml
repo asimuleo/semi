@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   app:
-    image: siestageek/semiproject:latest
+    image: muleo/semiproject:latest
     container_name: semiproject_app
     ports:
       - "8080:8080"
