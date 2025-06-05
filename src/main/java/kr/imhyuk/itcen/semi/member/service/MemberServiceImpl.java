@@ -1,6 +1,7 @@
 package kr.imhyuk.itcen.semi.member.service;
 
 import kr.imhyuk.itcen.semi.member.domain.Member;
+import kr.imhyuk.itcen.semi.member.domain.dto.LoginDTO;
 import kr.imhyuk.itcen.semi.member.domain.dto.MemberDTO;
 import kr.imhyuk.itcen.semi.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class MemberServiceImpl implements MemberService {
         // true/false 반환
     }
 
-    public Member loginMember(MemberDTO member) {
+    public Member loginMember(LoginDTO member) {
         Member findMember = memberMapper.findByUserid(member.getUserid());
 
         if (findMember == null || !findMember.getPasswd().equals(member.getPasswd())) {

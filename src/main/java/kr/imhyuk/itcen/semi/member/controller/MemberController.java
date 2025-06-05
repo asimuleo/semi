@@ -1,12 +1,10 @@
 package kr.imhyuk.itcen.semi.member.controller;
 
-import kr.imhyuk.itcen.semi.member.domain.Member;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/member")
@@ -23,14 +21,24 @@ public class MemberController {
     }
 
     @GetMapping("/myinfo")
-    public String myinfo(Model model) {
-
-        Member user = new Member(0,"abc123","abc123","abc123",
-                "abc123@abc123.co.kr", LocalDateTime.now());
-
-        model.addAttribute("loginUser", user);
+    public String myinfo(Model model, HttpSession session) {
+        String returnUrl = "/member/login";
+//        Member user = new Member(0,"abc123","abc123","abc123",
+//                "abc123@abc123.co.kr", LocalDateTime.now());
+//
+//        model.addAttribute("loginUser", user);
+        if (session.getAttribute("loginUser") == null) {
+            return "redirect:" + returnUrl;
+        }
+        model.addAttribute("loginUser", session.getAttribute("loginUser"));
 
         return "views/member/myinfo";
+    }
+
+    @GetMapping("logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 
 }

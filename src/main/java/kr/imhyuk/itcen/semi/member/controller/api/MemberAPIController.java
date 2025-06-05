@@ -1,15 +1,18 @@
 package kr.imhyuk.itcen.semi.member.controller.api;
 
-import jakarta.servlet.http.HttpSession;
 import kr.imhyuk.itcen.semi.member.domain.Member;
+import kr.imhyuk.itcen.semi.member.domain.dto.LoginDTO;
 import kr.imhyuk.itcen.semi.member.domain.dto.MemberDTO;
 import kr.imhyuk.itcen.semi.member.service.MemberService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
@@ -46,7 +49,7 @@ public class MemberAPIController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginok(MemberDTO member, HttpSession session) {
+    public ResponseEntity<?> loginok(LoginDTO member, HttpSession session) {
         // 로그인 처리시 기타오류 발생에 대한 응답코드 설정
         ResponseEntity<?> response = ResponseEntity.internalServerError().build();
 
@@ -58,7 +61,7 @@ public class MemberAPIController {
             session.setAttribute("loginUser", loginUser);
             session.setMaxInactiveInterval(600);  // 세션 유지 : 10분
 
-            response = ResponseEntity.ok().build();
+            response = ResponseEntity.ok().body("로그인 성공했습니다!!");
         } catch (IllegalStateException e) {
             // 비정상 처리시 상태코드 400으로 응답 - 클라이언트 잘못
             // 아이디나 비밀번호 잘못 입력시
